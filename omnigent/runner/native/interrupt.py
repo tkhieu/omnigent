@@ -90,6 +90,7 @@ class MarkSubagentTerminalAndWake(Protocol):
         status: str,
         output: str | None,
         only_if_work_id: str | None = None,
+        confirmed_cancellation: bool = False,
     ) -> SubagentDeliveryAck:
         raise NotImplementedError
 
@@ -636,6 +637,7 @@ class NativeInterruptRunner:
             conv_id,
             status="cancelled",
             output=None,
+            confirmed_cancellation=True,
         )
         if not delivery_ack.delivered and (
             delivery_ack.entry is not None or conv_id in self._session_sub_agent_names
@@ -708,6 +710,7 @@ class NativeInterruptRunner:
             conv_id,
             status="cancelled",
             output=None,
+            confirmed_cancellation=True,
         )
         if not delivery_ack.delivered and (
             delivery_ack.entry is not None or conv_id in self._session_sub_agent_names
